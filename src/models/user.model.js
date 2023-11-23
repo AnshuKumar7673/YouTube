@@ -14,9 +14,7 @@ const useSchema=new Schema(
             index:true
 
         },
-        email:{
-            
-                
+        email:{               
                     type: String,
                     required:true,
                     unique:true,
@@ -33,7 +31,7 @@ const useSchema=new Schema(
             trim:true,
             index:true
         },
-        avatara:{           
+        avatar:{           
             type: String,//cloudinary url
             required:true
              
@@ -43,7 +41,7 @@ const useSchema=new Schema(
         },
         watchHistory:[
             {
-                type:Schema.Type.ObjectId,
+                type:Schema.Types.ObjectId,
                 ref:"Video"
             }
         ],
@@ -64,7 +62,7 @@ const useSchema=new Schema(
 useSchema.pre("save",async function (next){
     if(!this.isModified("password"))  return next();
 
-    this.password=bcrypt.hash(this.password,10)
+    this.password=await bcrypt.hash(this.password,10)
     next()
 })
 
