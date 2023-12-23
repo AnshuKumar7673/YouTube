@@ -1,4 +1,5 @@
 import multer from "multer";
+const multerMiddleware = require('../middlewares/multer.middleware');
 
 
 
