@@ -1,61 +1,47 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, {Schema} from "mongoose";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
-const videoSchema=new Schema (
+const videoSchema = new Schema(
     {
-       videoFile:{
-            type: String,
-            required:true,
-            unique:true,
-            lowercase:true,
-            trim:true,
-            index:true
+        videoFile: {
+            type: String, //cloudinary url
+            required: true
+        },
+        thumbnail: {
+            type: String, //cloudinary url
+            required: true
+        },
+        title: {
+            type: String, 
+            required: true
+        },
+        description: {
+            type: String, 
+            required: true
+        },
+        duration: {
+            type: Number, 
+            required: true
+        },
+        views: {
+            type: Number,
+            default: 0
+        },
+        isPublished: {
+            type: Boolean,
+            default: true
+        },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
 
-        },
-        email:{
-            
-                
-                    type: String,
-                    required:true,
-                    unique:true,
-                    lowercase:true,
-                    trim:true,
-                   
-        },
-        fullname:{
-            
-            type: String,
-            required:true,
-             
-            
-            trim:true,
-            index:true
-        },
-        avatara:{           
-            type: String,//cloudinary url
-            required:true
-             
-        },
-        coverImage:{
-            type:String
-        },
-        watchHistory:[
-            {
-                type:Schema.Type.ObjectId,
-                ref:"Video"
-            }
-        ],
-        password:{
-            type:String,
-            require:[true,'password is requred']
-        },
-        refreshToken:{
-            type:String
-        },
-       
-},
-   {
-      timestamps:true
-   }
+    }, 
+    {
+        timestamps: true
+    }
 )
 
-export const  Video =mongoose.model("Video",videoSchema)
+videoSchema.plugin(mongooseAggregatePaginate)
+
+export const Video = mongoose.model("Video", videoSchema)
