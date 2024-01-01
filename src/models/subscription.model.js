@@ -16,12 +16,5 @@ const scubscriptionSchema=new Schema({
 })
 
 
-
-
-
-
-
-
-
-
+ 
 export const Subsciption=mongoose.model("Subsciption",scubscriptionSchema)
